@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+html,
+body {
+  margin: 0;
+  box-sizing: border-box;
+  width: 99vw;
+  min-height: 100vh;
+  padding: 0;
+}
+
+section.header {
+  box-sizing: border-box;
+  max-width: 100vw;
+  background-color: #04322f;
+  height: 377px;
+  background-image: linear-gradient(rgba(4, 50, 47, 0.4), rgba(4, 50, 47, 0.4)),
+    url(https://assets-global.website-files.com/645a69e5ff9a553155774bec/6477855a5edf5fea383f1ac4_pexels-kindel-media-6868618.webp);
+  background-position-x: 0px, 50%;
+  background-position-y: 0px, 75%;
+  background-position: bottom bottom;
+  background-size: cover;
+  border-radius: 0 0 30px 30px;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.header > span {
+  font-size: 3rem;
+  color: #fff;
+}
+
+@media (max-width: 1280px) {
+  section.header {
+    height: 299px;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 793px) {
+  section.header > span {
+    font-size: 2rem;
+  }
+}
