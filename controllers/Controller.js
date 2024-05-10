@@ -57,12 +57,11 @@ router.get("/product/", isLoggedInFunc, async (req, res) => {
 });
 
 router.get("/products", isLoggedInFunc, async (req, res) => {
-  if (req.body.isLoggedIn == true) {
 
     products.find({}).then(data => {
       res.render("products", { products: data });
     })
-  }
+  
 });
 
 router.post("/product-search", (req, res) => {
