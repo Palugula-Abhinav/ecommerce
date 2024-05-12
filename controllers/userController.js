@@ -9,8 +9,8 @@ const users = require("../models/users");
 const bcrypt = require("bcrypt");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
-let { login_signup_middleware } = require("../middleware/authMiddleware")
-let {loginLogic, signupLogic} = require("../logic/authenticationLogic")
+let { login_signup_middleware } = require("../middleware/authMiddleware");
+let { loginLogic, signupLogic } = require("../logic/authenticationLogic");
 
 router.use(
   session({
@@ -66,9 +66,13 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ googleId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ googleId: profile.id, email: profile.emails[0].value }]).then((data) => {
-            return cb(null, data[0]);
-          });
+          users
+            .insertMany([
+              { googleId: profile.id, email: profile.emails[0].value },
+            ])
+            .then((data) => {
+              return cb(null, data[0]);
+            });
         } else {
           return cb(null, data);
         }
@@ -87,9 +91,13 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       users.find({ facebookId: profile.id }).then((data) => {
         if (data.length == 0) {
-          users.insertMany([{ facebookId: profile.id, username: profile.emails[0].value }]).then((data) => {
-            return cb(null, data[0]);
-          });
+          users
+            .insertMany([
+              { facebookId: profile.id, username: profile.emails[0].value },
+            ])
+            .then((data) => {
+              return cb(null, data[0]);
+            });
         } else {
           return cb(null, data);
         }
@@ -98,12 +106,9 @@ passport.use(
   )
 );
 
-router.route("/signup").get(
-  login_signup_middleware,
-  (req, res) => {
-    res.render("signup");
-  }
-);
+router.route("/signup").get(login_signup_middleware, (req, res) => {
+  res.render("signup");
+});
 
 router.get(
   "/login",
@@ -122,11 +127,14 @@ router.get(
 
 router.route("/signup").post(signupLogic);
 
-router.route("/login").post(
-  passport.authenticate('local', { failureRedirect: '/user/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+router
+  .route("/login")
+  .post(
+    passport.authenticate("local", { failureRedirect: "/user/login" }),
+    function (req, res) {
+      res.redirect("/");
+    }
+  );
 
 // Oauth Google
 router.get(
@@ -143,7 +151,13 @@ router.get(
 );
 
 //Oauth Facebook
-router.get("/auth/facebook", router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email"] })));
+router.get(
+  "/auth/facebook",
+  router.get(
+    "/auth/facebook",
+    passport.authenticate("facebook", { scope: ["email"] })
+  )
+);
 
 router.get(
   "/auth/facebook/callback",
@@ -162,7 +176,5 @@ router.get("/logout", function (req, res, next) {
     res.redirect("/");
   });
 });
-
-
 
 module.exports = router;
