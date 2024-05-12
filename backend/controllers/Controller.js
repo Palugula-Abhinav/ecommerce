@@ -157,9 +157,7 @@ router.post("/create-checkout-session", async (req, res) => {
   userCart = userCart[0].cart
   try {
     const lineItems = await Promise.all(userCart.map(async (item) => {
-      console.log()
       const product = await products.find({_id: item.productId});
-      console.log(product[0].imageUrl)
       if (product.length == 0) {
         throw new Error("Invalid product ID");
       }
@@ -168,7 +166,7 @@ router.post("/create-checkout-session", async (req, res) => {
           currency: 'inr',
           product_data: {
             name: product[0].productName,
-                    images: [
+            images: [
               product[0].imageUrl
             ],
           },
@@ -195,6 +193,26 @@ router.post("/create-checkout-session", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+router.get('/cart',async(req,res)=>{
+  try {
+    const user = await users.findOne({ _id: req.session.passport.user });
+    const userCart = user.cart;
+    const productPromises = userCart.map(async (item) => {
+        const product = await products.findOne({ _id: item.productId });
+        return {
+            name: product.productName,
+            image: product.imageUrl,
+            price: product.price,
+            quantity: item.quantity
+        };
+    });
+    const productsWithImages = await Promise.all(productPromises);
+    res.render("cart", { products: productsWithImages });
+} catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+}
+})
 
 
 router.get("/checkout", async (req, res) => {
