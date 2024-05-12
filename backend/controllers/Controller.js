@@ -182,10 +182,9 @@ router.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: lineItems,
-      success_url: "http://localhost:3000/checkoutSuccess",
-      cancel_url: "http://localhost:3000/checkoutCancel",
-
-    });
+      success_url: `http://localhost:2000/checkoutSuccess`,
+      cancel_url: "http://localhost:2000/checkoutCancel",
+  });
 
     res.json({ url: session.url });
   } catch (error) {
@@ -214,6 +213,9 @@ router.get('/cart',async(req,res)=>{
 }
 })
 
+router.get("/checkoutSuccess",(req,res)=>{
+  res.render('successpage')
+});
 
 router.get("/checkout", async (req, res) => {
   try {
