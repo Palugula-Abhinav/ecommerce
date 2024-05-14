@@ -101,7 +101,7 @@ passport.use(
 router.route("/signup").get(
   login_signup_middleware,
   (req, res) => {
-    res.render("signup");
+    res.render("auth");
   }
 );
 
@@ -116,7 +116,7 @@ router.get(
     }
   },
   (req, res) => {
-    res.render("login");
+    res.render("auth");
   }
 );
 

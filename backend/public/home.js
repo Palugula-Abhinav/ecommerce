@@ -11,6 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+  const dropdownToggle = document.querySelector(".dropdown-toggle");
+  const dropdownContent = document.querySelector(".dropdown-content");
+
+  dropdownToggle.addEventListener("click", function() {
+    dropdownContent.classList.toggle("show");
+  });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const productsData = [
     {

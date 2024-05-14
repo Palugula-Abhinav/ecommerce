@@ -12,52 +12,56 @@ let { isLoggedInFunc } = require("../middleware/authMiddleware")
 router.use(express.json())
 
 // Route Handlers
-router.get(
-  "/",
-  isLoggedInFunc,
-  (req, res) => {
-    res.render("home", { isLoggedIn: req.body.isLoggedIn });
-  }
-);
+router.get("/", isLoggedInFunc, (req, res) => {
+  const isLoggedIn = req.isAuthenticated();
+  const user = req.user;
+  
+  res.render("home", { isLoggedIn, user });
+});
 router.get("/product/", isLoggedInFunc, async (req, res) => {
   if (req.body.isLoggedIn == true) {
+    // User is logged in, proceed with rendering the product page
     let user = await users.find({ _id: req.session.passport.user });
   
-  products.find({ productName: req.query.id }).then(data => {
-    let inCart = false;
-    user[0].cart.map(item => {
-      if (item.productId == data[0]._id) {
-        inCart = true
-      } else {
-        if (!inCart == true) {
-          inCart = false
-        }
-      }
-    })
-    if (inCart) {
-      res.render("product",{
-          product: data[0],
-          inCart: true
-        });
-    } else {
-      res.render("product",{
-          product: data[0],
-          inCart: false
-        });
-    }
-  })
-  } else {
     products.find({ productName: req.query.id }).then(data => {
-      res.render("product", {
-        product: data[0],
-        inCart: false
-      });
+      let inCart = false;
+      user[0].cart.map(item => {
+        if (item.productId == data[0]._id) {
+          inCart = true
+        } else {
+          if (!inCart == true) {
+            inCart = false
+          }
+        }
+      })
+      
+      // Find similar products excluding the current product
+      products.find({ group: data[0].group, _id: { $ne: data[0]._id } }).then(similarProducts => {
+        if (inCart) {
+          res.render("product",{
+            product: data[0],
+            inCart: true,
+            similarProducts: similarProducts,
+            isLoggedIn: req.body.isLoggedIn // Pass isLoggedIn to the template
+          });
+        } else {
+          res.render("product",{
+            product: data[0],
+            inCart: false,
+            similarProducts: similarProducts,
+            isLoggedIn: req.body.isLoggedIn // Pass isLoggedIn to the template
+          });
+        }
+      })
     })
+  } else {
+    // User is not logged in, redirect to login page
+    res.redirect('/auth');
   }
 });
 
-router.get("/products", isLoggedInFunc, async (req, res) => {
 
+router.get("/products", isLoggedInFunc, async (req, res) => {
     products.find({}).then(data => {
       res.render("products", { products: data });
     })

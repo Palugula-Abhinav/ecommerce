@@ -4,10 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-Commerce</title>
+    <link href="/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/inner.css">
     <link rel="stylesheet" href="/product-styles.css" />
   </head>
   <body>
-    <nav></nav>
+    <nav
+        class="container mx-auto flex flex-row justify-between items-center py-4"
+      >
+        <div>
+          <h1 class="text-[2.5rem] font-semibold">SYI STUDIO</h1>
+        </div>
+        <ul class="hidden md:flex flex-row items-center gap-8 font-light text-xl">
+          <li><a href="/">Home</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="/products">Product</a></li>
+          <li><a href="">Contact</a></li>
+          <li><a href="/cart">Cart</a></li>
+           <% if (isLoggedIn) { %>
+            <li><a href="" class="flex flex-row gap-2 items-center"><i class="fa-solid fa-caret-down"></i><img src="https://th.bing.com/th/id/OIP.qc-3iDglX3Aw3n-ymceqegHaHa?rs=1&pid=ImgDetMain" alt="" class="h-10 w-10 border-2 border-gray-800 rounded-full"></a></li>
+          <% } else {%>
+            <li class="nav-item"><a href="/user/login">Login</a></li>
+          <% } %>
+
+        </ul>
+        <div class="flex md:hidden text-2xl">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        
+      </nav>
     <main>
       <section id="product">
         <img
@@ -74,7 +99,19 @@
           </div>
         </div>
       </section>
+      
     </main>
+    <section id="SimilarProducts">
+      <% similarProducts.forEach(function(product, index) { %>
+        <a href="/product?id=<%= product.productName %>">
+          <div class="card">
+            <img class="product-image" src="<%= product.imageUrl %>" alt="<%= product.productName %>">
+            <p class="product-Name"><%= product.productName %></p>
+          </div>
+        </a>
+      <% }) %>
+    </section>
+    
     <script>
       var productInfo = JSON.parse('<%- JSON.stringify(product) -%>')
     </script>

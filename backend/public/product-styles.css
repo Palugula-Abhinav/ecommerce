@@ -203,6 +203,32 @@ section#product {
   background-color: #495f11;
   transition: background-color 250ms linear;
 }
+#SimilarProducts {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between; /* Align items with space between them */
+}
+
+.card {
+  width: 280px; /* Set image width to 280px */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 10px;
+  display: inline-block;
+  margin-bottom: 50px;
+}
+
+.product-image {
+  width: 100%; /* Make the image fill the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.product-Name {
+  text-align: center; /* Center the product name */
+  padding: 8px 0; /* Add some padding */
+  font-size: medium;
+}
 
 @media (min-width: 789px) {
   #product-image {

@@ -61,9 +61,18 @@
           <li><a href="">Contact</a></li>
           <li><a href="/cart">Cart</a></li>
            <% if (isLoggedIn) { %>
-            <li><a href="" class="flex flex-row gap-2 items-center"><i class="fa-solid fa-caret-down"></i><img src="https://th.bing.com/th/id/OIP.qc-3iDglX3Aw3n-ymceqegHaHa?rs=1&pid=ImgDetMain" alt="" class="h-10 w-10 border-2 border-gray-800 rounded-full"></a></li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle flex flex-row gap-2 items-center">
+                <i class="fa-solid fa-caret-down"></i>
+              </a>
+              <div class="dropdown-content">
+                <img src="<%= user.profilePicture %>" alt="<%= user.username %>" class="h-10 w-10 border-2 border-gray-800 rounded-full">
+                <%= user.username %>
+                <a href="/user/logout">Logout</a>
+              </div>
+            </div>
           <% } else {%>
-            <li class="nav-item"><a href="/user/login">Login</a></li>
+            <li class="nav-item"><a href="/auth">Login</a></li>
           <% } %>
 
         </ul>

@@ -12,6 +12,12 @@ body {
   z-index: 2;
 }
 
+.dropdown-content {
+  display: none;
+}
+.dropdown-content.show {
+  display: block;
+}
 .nav_container {
   height: 10vh;
   margin: 0 3rem;
