@@ -8,9 +8,6 @@ window.addEventListener("scroll", function () {
     navbar.classList.remove("shadow");
   }
 });
-
-
-
 let colorsList = [
   "red",
   "pink",
