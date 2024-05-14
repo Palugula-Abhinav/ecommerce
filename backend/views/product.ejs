@@ -102,14 +102,19 @@
       
     </main>
     <section id="SimilarProducts">
-      <% similarProducts.forEach(function(product, index) { %>
-        <a href="/product?id=<%= product.productName %>">
-          <div class="card">
-            <img class="product-image" src="<%= product.imageUrl %>" alt="<%= product.productName %>">
-            <p class="product-Name"><%= product.productName %></p>
-          </div>
-        </a>
-      <% }) %>
+      <div class="sim_prod">
+        <h1 class="text-center" style="padding-bottom: 25px;">Similar Products</h1>
+        <div class="cards-container">
+          <% similarProducts.forEach(function(product, index) { %>
+            <a href="/product?id=<%= product.productName %>">
+              <div class="card">
+                <img class="product-image" src="<%= product.imageUrl %>" alt="<%= product.productName %>">
+                <p class="product-Name"><%= product.productName %></p>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
     </section>
     
     <script>

@@ -230,6 +230,11 @@ section#product {
   font-size: medium;
 }
 
+.sim_prod{
+  text-align: center;
+}
+
+
 @media (min-width: 789px) {
   #product-image {
   }
