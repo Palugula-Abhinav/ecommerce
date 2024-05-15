@@ -246,5 +246,9 @@ router.get("/auth",(req,res)=>{
   res.render("auth");
 })
 
+router.get("/contact",(req,res)=>{
+  res.render('contact')
+})
+
 
 module.exports = router
