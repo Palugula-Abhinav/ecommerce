@@ -61,7 +61,7 @@ passport.use(
     {
       clientID: process.env.clientId,
       clientSecret: process.env.clientSecret,
-      callbackURL: "http://localhost:2000/user/auth/google/callback",
+      callbackURL: `${process.env.baseUrl}/user/auth/google/callback`,
     },
     function (accessToken, refreshToken, profile, cb) {
       users.find({ googleId: profile.id }).then((data) => {
@@ -82,7 +82,7 @@ passport.use(
     {
       clientID: process.env.appId,
       clientSecret: process.env.appSecret,
-      callbackURL: "http://localhost:2000/user/auth/facebook/callback",
+      callbackURL: `${process.env.baseUrl}/user/auth/facebook/callback`,
     },
     function (accessToken, refreshToken, profile, cb) {
       users.find({ facebookId: profile.id }).then((data) => {
